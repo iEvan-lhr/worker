@@ -11,7 +11,7 @@ type Conn struct {
 }
 
 func (c *Conn) GetConn(mission chan *anything.Mission, data []interface{}) {
-	dbc, err := sql.Open("mysql", "root:Luhaoran0!@tcp(106.12.170.224:3306)/evan?parseTime=true")
+	dbc, err := sql.Open(data[0].(string), data[1].(string))
 	if err != nil {
 		panic(err)
 	}
