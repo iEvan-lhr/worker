@@ -18,7 +18,7 @@ func (e *Engine) Init() {
 }
 
 func (e *Engine) RegisterRouter() {
-	for s := range e.W.R {
+	e.W.R.Range(func(key, value any) bool {
 		func(name string) {
 			http.HandleFunc("/"+tool.EString(name).FirstLowerBackString(), func(writer http.ResponseWriter, request *http.Request) {
 				key := e.W.Schedule(name, []any{writer, request})
@@ -28,8 +28,9 @@ func (e *Engine) RegisterRouter() {
 				_, _ = fmt.Fprintf(writer, "%s", mission.([]any)[0])
 				delete(e.W.E, key)
 			})
-		}(s)
-	}
+		}(key.(string))
+		return true
+	})
 }
 
 func (e *Engine) Run(addr string) {
