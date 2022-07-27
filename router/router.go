@@ -1,17 +1,18 @@
 package router
 
 import (
-	"fmt"
 	"github.com/iEvan-lhr/nihility-dust/anything"
-	"gorm.io/gorm"
 )
 
 type Router struct {
 }
 
-func (d *Router) TestRouter(mission chan *anything.Mission, data []interface{}) {
-	temp := <-anything.DoChanTemp(mission, []interface{}{"GetConn", "NULL"})
-	db := temp.Pursuit[0].(*gorm.DB)
-	fmt.Println(db.Name())
-	mission <- &anything.Mission{Name: anything.ExitFunction, Pursuit: []interface{}{db.Name()}}
+func (r *Router) TestRouter(mission chan *anything.Mission, data []any) {
+	temp := <-anything.DoChanN("GetWorkerInfoList", nil)
+	//log.Println(temp)
+	mission <- &anything.Mission{Name: anything.ExitFunction, Pursuit: []any{temp.Pursuit}}
+}
+
+func (r *Router) Index(mission chan *anything.Mission, data []any) {
+	mission <- &anything.Mission{Name: "HtmlResource", Pursuit: []any{"index"}}
 }

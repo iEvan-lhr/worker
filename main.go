@@ -1,9 +1,7 @@
 package main
 
 import (
-	"github.com/iEvan-lhr/nihility-dust/wind"
-	"log"
-	"time"
+	"github.com/iEvan-lhr/nihility-dust/anything"
 	"worker/db"
 	"worker/engine"
 	"worker/router"
@@ -11,11 +9,7 @@ import (
 
 func main() {
 	e := engine.Engine{
-		W: wind.Wind{},
+		W: anything.Wind{},
 	}
-	e.W.Register(&router.Router{}, &db.Conn{})
-	e.Init()
-	e.RegisterRouter()
-	log.Println("初始化版本:", time.Now().Format("2006-01-02 15:04:05"))
-	e.Run(":9098")
+	e.Start("9080", []any{&db.Conn{}, &db.WorkerInfo{}}, []any{&router.Router{}})
 }
