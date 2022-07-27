@@ -2,8 +2,8 @@ package db
 
 import (
 	"github.com/iEvan-lhr/nihility-dust/anything"
+	"github.com/iEvan-lhr/worker/typ"
 	"gorm.io/gorm"
-	"worker/typ"
 )
 
 type WorkerInfo struct {

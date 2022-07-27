@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/iEvan-lhr/nihility-dust/anything"
-	"worker/db"
-	"worker/engine"
-	"worker/router"
+	"github.com/iEvan-lhr/worker/db"
+	"github.com/iEvan-lhr/worker/engine"
+	"github.com/iEvan-lhr/worker/router"
 )
 
 func main() {

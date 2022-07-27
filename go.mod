@@ -1,4 +1,4 @@
-module worker
+module github.com/iEvan-lhr/worker
 
 go 1.18
 
