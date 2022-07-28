@@ -10,7 +10,7 @@ require (
 
 require (
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
-	github.com/iEvan-lhr/nihility-dust v0.1.3-0.20220728025601-e65eda7c8d67 // indirect
+	github.com/iEvan-lhr/nihility-dust v0.1.3-0.20220728030358-68b98f331a34 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 )
