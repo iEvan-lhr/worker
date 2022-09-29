@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/iEvan-lhr/nihility-dust/anything"
 	tool "github.com/iEvan-lhr/string"
+	"github.com/iEvan-lhr/worker/typ"
 	"log"
 	"net/http"
 	"time"
@@ -15,6 +16,9 @@ type Engine struct {
 
 func (e *Engine) Init() {
 	e.W.Init()
+	f := &typ.FoxExecutor{}
+	f.Init()
+	e.W.SetController(f)
 }
 
 func (e *Engine) RegisterRouter() {
