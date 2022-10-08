@@ -21,8 +21,9 @@ go get github.com/iEvan-lhr/worker
 
 ## 简单模式
 <h3>使用</h3>
+
 ```bash
-    anything.AddEasyMission()
+anything.AddEasyMission()
 ```
 <h3>来注册方法</h3>
 
@@ -32,12 +33,14 @@ Struct<br />
 <h3>两种模式注册方法</h3>
 
 <h3>使用</h3>
+
 ```bash
     temp := <-anything.DoChanN("方法名称","方法参数")
 ```
 <h3>来执行方法</h3>
 <h3>temp会接收返回的参数 为any类型</h3>
 <h3>通过Pursuit下标的方式取出返回值</h3>
+
 ```bash
     db := temp.Pursuit[0].(*gorm.DB)
 ```
@@ -49,6 +52,7 @@ Struct<br />
 
 ## 进阶模式
 <h3>使用</h3>
+
 ```bash
     e := engine.Engine{
 		W: anything.Wind{},
