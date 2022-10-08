@@ -13,11 +13,6 @@ type FoxExecutor struct {
 	i      int
 }
 
-type FOX interface {
-	Init()
-	DoMaps() chan struct{}
-}
-
 func (f *FoxExecutor) Init() {
 	for i := 0; i < res.MasterLen; i++ {
 		f.Master = append(f.Master, make(chan struct{}))
@@ -31,7 +26,7 @@ func (f *FoxExecutor) DoMaps() chan struct{} {
 		return f.checkNilMissionChan()
 	} else {
 		f.DoMap.Store(f.i, 0)
-		//f.Counts[f.i]++
+		f.Counts[f.i]++
 		go func(index int) {
 			<-f.Master[index]
 			f.DoMap.Delete(index)
@@ -52,7 +47,7 @@ NEXT:
 		if _, ok := f.DoMap.Load(i); !ok {
 			f.DoMap.Store(i, 0)
 			f.i = i
-			//f.Counts[f.i]++
+			f.Counts[f.i]++
 			go func(index int) {
 				<-f.Master[index]
 				f.DoMap.Delete(index)
@@ -60,6 +55,6 @@ NEXT:
 			return f.Master[i]
 		}
 	}
-	time.Sleep(20 * time.Millisecond)
+	time.Sleep(10 * time.Millisecond)
 	goto NEXT
 }
