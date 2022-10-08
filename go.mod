@@ -3,7 +3,7 @@ module github.com/iEvan-lhr/worker
 go 1.18
 
 require (
-	github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221008064654-819fd1e86eb7
+	github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221008082143-31708122b0fe
 	github.com/iEvan-lhr/string v0.0.4
 	gorm.io/driver/mysql v1.3.4
 	gorm.io/gorm v1.23.6

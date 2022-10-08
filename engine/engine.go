@@ -25,12 +25,12 @@ func (e *Engine) RegisterRouter() {
 	e.W.R.Range(func(key, value any) bool {
 		func(name string) {
 			http.HandleFunc("/"+tool.EString(name).FirstLowerBackString(), func(writer http.ResponseWriter, request *http.Request) {
-				key := e.W.Schedule(name, []any{writer, request})
+				key1 := e.W.Schedule(name, []any{writer, request})
 				// 出口
-				<-e.W.E[key]
-				mission, _ := e.W.A.Load(key)
+				<-e.W.E[key1]
+				mission, _ := e.W.A.Load(key1)
 				_, _ = fmt.Fprintf(writer, "%s", mission.([]any)[0])
-				delete(e.W.E, key)
+				delete(e.W.E, key1)
 			})
 		}(key.(string))
 		return true

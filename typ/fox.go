@@ -36,7 +36,6 @@ func (f *FoxExecutor) DoMaps() chan struct{} {
 		} else {
 			f.i = 0
 		}
-
 	}
 	return f.Master[f.i]
 }
