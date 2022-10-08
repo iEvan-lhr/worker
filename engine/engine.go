@@ -18,7 +18,7 @@ func (e *Engine) Init() {
 	e.W.Init()
 	f := &typ.FoxExecutor{}
 	f.Init()
-	e.W.SetController(f)
+	anything.SetController(f)
 }
 
 func (e *Engine) RegisterRouter() {
