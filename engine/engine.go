@@ -11,7 +11,8 @@ import (
 )
 
 type Engine struct {
-	W anything.Wind
+	W      anything.Wind
+	Origin []string
 }
 
 func (e *Engine) Init() {
@@ -25,6 +26,20 @@ func (e *Engine) RegisterRouter() {
 	e.W.R.Range(func(key, value any) bool {
 		func(name string) {
 			http.HandleFunc("/"+tool.EString(name).FirstLowerBackString(), func(writer http.ResponseWriter, request *http.Request) {
+				switch len(e.Origin) {
+				case 1:
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+				case 2:
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+					writer.Header().Set("Access-Control-Allow-Methods", e.Origin[1])
+				case 3:
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+					writer.Header().Set("Access-Control-Allow-Methods", e.Origin[1])
+					writer.Header().Set("Access-Control-Allow-Headers", e.Origin[2])
+				}
+				if len(e.Origin) > 0 {
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+				}
 				key1 := e.W.Schedule(name, []any{writer, request})
 				// 出口
 				<-e.W.E[key1]
