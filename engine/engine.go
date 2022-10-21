@@ -2,34 +2,66 @@ package engine
 
 import (
 	"fmt"
-	"github.com/iEvan-lhr/nihility-dust/wind"
+	"github.com/iEvan-lhr/nihility-dust/anything"
 	tool "github.com/iEvan-lhr/string"
+	"github.com/iEvan-lhr/worker/typ"
+	"log"
 	"net/http"
+	"time"
 )
 
 type Engine struct {
-	W wind.Wind
+	W      anything.Wind
+	Origin []string
 }
 
 func (e *Engine) Init() {
 	e.W.Init()
+	f := &typ.FoxExecutor{}
+	f.Init()
+	anything.SetController(f)
 }
 
 func (e *Engine) RegisterRouter() {
-	for s := range e.W.M {
+	e.W.R.Range(func(key, value any) bool {
 		func(name string) {
 			http.HandleFunc("/"+tool.EString(name).FirstLowerBackString(), func(writer http.ResponseWriter, request *http.Request) {
-				key := e.W.Schedule(name, writer, request)
+				switch len(e.Origin) {
+				case 1:
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+				case 2:
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+					writer.Header().Set("Access-Control-Allow-Methods", e.Origin[1])
+				case 3:
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+					writer.Header().Set("Access-Control-Allow-Methods", e.Origin[1])
+					writer.Header().Set("Access-Control-Allow-Headers", e.Origin[2])
+				}
+				if len(e.Origin) > 0 {
+					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
+				}
+				key1 := e.W.Schedule(name, []any{writer, request})
 				// 出口
-				<-e.W.E[key]
-				mission, _ := e.W.A.Load(key)
-				_, _ = fmt.Fprintf(writer, "%s", mission.([]interface{})[0])
-				delete(e.W.E, key)
+				<-e.W.E[key1]
+				mission, _ := e.W.A.Load(key1)
+				_, _ = fmt.Fprintf(writer, "%s", mission.([]any)[0])
+				delete(e.W.E, key1)
 			})
-		}(s)
-	}
+		}(key.(string))
+		return true
+	})
 }
 
 func (e *Engine) Run(addr string) {
 	_ = http.ListenAndServe(addr, nil)
+}
+
+func (e *Engine) Start(port string, model, routers []any) {
+	e.W.Register(model...)
+	e.W.Register(routers...)
+	e.W.RegisterRouters(routers)
+	e.Init()
+	e.RegisterRouter()
+	log.Println("初始化版本:", time.Now().Format("2006-01-02 15:04:05"))
+	e.Run(":" + port)
 }
