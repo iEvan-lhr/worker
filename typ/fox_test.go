@@ -2,7 +2,6 @@ package typ
 
 import (
 	"github.com/iEvan-lhr/worker/res"
-	"log"
 	"math/rand"
 	"testing"
 	"time"
@@ -28,18 +27,4 @@ func TestInit(t *testing.T) {
 		}
 	}
 	time.Sleep(2 * time.Second)
-	log.Println(f.Counts)
-	count := 0
-	mix, max := 90000, 0
-	for _, v := range f.Counts {
-		if v > max {
-			max = v
-		}
-		if v < mix {
-			mix = v
-		}
-		count += v
-	}
-	log.Println("All count", count)
-	log.Println("Max-Mix=", max-mix)
 }
