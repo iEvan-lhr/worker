@@ -9,5 +9,5 @@ func ReSetMasterLen(i int) {
 }
 
 func init() {
-	MasterLen = runtime.NumCPU() * 6
+	MasterLen = runtime.NumCPU() * 2
 }
