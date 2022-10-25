@@ -43,13 +43,14 @@ func (f *FoxExecutor) doMap() chan struct{} {
 			<-f.Master[index]
 			f.DoMap.Delete(index)
 		}(f.i)
+		inx := f.i
 		if f.i != res.MasterLen-1 {
 			f.i++
 		} else {
 			f.i = 0
 		}
+		return f.Master[inx]
 	}
-	return f.Master[f.i]
 }
 
 func (f *FoxExecutor) checkNilMissionChan() chan struct{} {
@@ -65,7 +66,7 @@ NEXT:
 			return f.Master[i]
 		}
 	}
-	time.Sleep(3 * time.Millisecond)
+	time.Sleep(1 * time.Millisecond)
 	goto NEXT
 }
 
