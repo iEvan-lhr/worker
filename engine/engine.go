@@ -23,7 +23,7 @@ func (e *Engine) Init() {
 }
 
 func (e *Engine) RegisterRouter() {
-	e.W.R.Range(func(key, value any) bool {
+	e.W.R.Range(func(key, value interface{}) bool {
 		func(name string) {
 			http.HandleFunc("/"+tool.EString(name).FirstLowerBackString(), func(writer http.ResponseWriter, request *http.Request) {
 				switch len(e.Origin) {
@@ -40,11 +40,11 @@ func (e *Engine) RegisterRouter() {
 				if len(e.Origin) > 0 {
 					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
 				}
-				key1 := e.W.Schedule(name, []any{writer, request})
+				key1 := e.W.Schedule(name, []interface{}{writer, request})
 				// 出口
 				<-e.W.E[key1]
 				mission, _ := e.W.A.Load(key1)
-				_, _ = fmt.Fprintf(writer, "%s", (mission.([]any)[0]).(*anything.Mission).Pursuit)
+				_, _ = fmt.Fprintf(writer, "%s", (mission.([]interface{})[0]).(*anything.Mission).Pursuit)
 				delete(e.W.E, key1)
 			})
 		}(key.(string))
@@ -56,7 +56,7 @@ func (e *Engine) Run(addr string) {
 	_ = http.ListenAndServe(addr, nil)
 }
 
-func (e *Engine) Start(port string, model, routers []any) {
+func (e *Engine) Start(port string, model, routers []interface{}) {
 	e.W.Register(model...)
 	e.W.Register(routers...)
 	e.W.RegisterRouters(routers)
