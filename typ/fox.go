@@ -9,8 +9,6 @@ import (
 type FoxExecutor struct {
 	Master []chan struct{}
 	DoMap  *sync.Map
-	Inner  chan struct{}
-	Outer  chan chan struct{}
 	i      int
 }
 
@@ -19,19 +17,10 @@ func (f *FoxExecutor) Init() {
 		f.Master = append(f.Master, make(chan struct{}))
 	}
 	f.DoMap = &sync.Map{}
-	f.Inner = make(chan struct{})
-	f.Outer = make(chan chan struct{})
-	go func() {
-		for {
-			<-f.Inner
-			f.Outer <- f.doMap()
-		}
-	}()
 }
 
 func (f *FoxExecutor) DoMaps() chan struct{} {
-	f.Inner <- struct{}{}
-	return <-f.Outer
+	return f.doMap()
 }
 
 func (f *FoxExecutor) doMap() chan struct{} {
