@@ -19,6 +19,14 @@ func (f *FoxExecutor) Init() {
 	f.DoMap = &sync.Map{}
 }
 
+func (f *FoxExecutor) InitByUser(num int) {
+	res.MasterLen = num
+	for i := 0; i < res.MasterLen; i++ {
+		f.Master = append(f.Master, make(chan struct{}))
+	}
+	f.DoMap = &sync.Map{}
+}
+
 func (f *FoxExecutor) DoMaps() chan struct{} {
 	return f.doMap()
 }
