@@ -44,7 +44,7 @@ func (e *Engine) RegisterRouter() {
 				// 出口
 				<-e.W.E[key1]
 				mission, _ := e.W.A.Load(key1)
-				_, _ = fmt.Fprintf(writer, "%s", (mission.([]any)[0]).(*anything.Mission).Pursuit)
+				_, _ = fmt.Fprintf(writer, "%s", mission)
 				delete(e.W.E, key1)
 			})
 		}(key.(string))
