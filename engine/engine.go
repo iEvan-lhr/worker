@@ -56,15 +56,15 @@ func (e *Engine) Run(addr string) {
 	_ = http.ListenAndServe(addr, nil)
 }
 
-func (e *Engine) Start(port string, model, routers []any, init []string) {
+func (e *Engine) Start(port string, model, routers []any, init map[string][]any) {
 	e.W.Register(model...)
 	e.W.Register(routers...)
 	e.W.RegisterRouters(routers)
 	e.Init()
 	e.RegisterRouter()
 	log.Println("初始化版本:", time.Now().Format("2006-01-02 15:04:05"))
-	for i := range init {
-		anything.OnceSchedule(init[i], nil)
+	for i, v := range init {
+		<-anything.DoChanN(i, v)
 	}
 	e.Run(":" + port)
 }
