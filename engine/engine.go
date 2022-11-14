@@ -4,7 +4,6 @@ import (
 	"fmt"
 	tools "github.com/iEvan-lhr/exciting-tool"
 	"github.com/iEvan-lhr/nihility-dust/anything"
-	tool "github.com/iEvan-lhr/string"
 	"github.com/iEvan-lhr/worker/typ"
 	"log"
 	"net/http"
@@ -26,7 +25,7 @@ func (e *Engine) Init() {
 func (e *Engine) RegisterRouter() {
 	e.W.R.Range(func(key, value any) bool {
 		func(name string) {
-			http.HandleFunc("/"+tool.EString(name).FirstLowerBackString(), func(writer http.ResponseWriter, request *http.Request) {
+			http.HandleFunc("/"+tools.Strings(name).FirstLowerBackString(), func(writer http.ResponseWriter, request *http.Request) {
 				switch len(e.Origin) {
 				case 1:
 					writer.Header().Set("Access-Control-Allow-Origin", e.Origin[0])
