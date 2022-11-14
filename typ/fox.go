@@ -1,6 +1,7 @@
 package typ
 
 import (
+	tools "github.com/iEvan-lhr/exciting-tool"
 	"github.com/iEvan-lhr/worker/res"
 	"sync"
 	"time"
@@ -36,10 +37,10 @@ func (f *FoxExecutor) doMap() chan struct{} {
 		return f.checkNilMissionChan()
 	} else {
 		f.DoMap.Store(f.i, 0)
-		go func(index int) {
+		tools.ExecGoFunc(func(index int) {
 			<-f.Master[index]
 			f.DoMap.Delete(index)
-		}(f.i)
+		}, f.i)
 		inx := f.i
 		if f.i != res.MasterLen-1 {
 			f.i++
@@ -56,10 +57,10 @@ NEXT:
 		if _, ok := f.DoMap.Load(i); !ok {
 			f.DoMap.Store(i, 0)
 			f.i = i
-			go func(index int) {
+			tools.ExecGoFunc(func(index int) {
 				<-f.Master[index]
 				f.DoMap.Delete(index)
-			}(i)
+			}, i)
 			return f.Master[i]
 		}
 	}

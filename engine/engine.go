@@ -2,6 +2,7 @@ package engine
 
 import (
 	"fmt"
+	tools "github.com/iEvan-lhr/exciting-tool"
 	"github.com/iEvan-lhr/nihility-dust/anything"
 	tool "github.com/iEvan-lhr/string"
 	"github.com/iEvan-lhr/worker/typ"
@@ -43,8 +44,8 @@ func (e *Engine) RegisterRouter() {
 				key1 := e.W.Schedule(name, []any{writer, request})
 				// 出口
 				<-e.W.E[key1]
-				mission, _ := e.W.A.Load(key1)
-				_, _ = fmt.Fprintf(writer, "%s", mission)
+				mission := tools.Ok(e.W.A.Load(key1))
+				tools.ReturnValue(fmt.Fprintf(writer, "%s", mission))
 				delete(e.W.E, key1)
 			})
 		}(key.(string))

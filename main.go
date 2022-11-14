@@ -10,5 +10,5 @@ func main() {
 	e := engine.Engine{
 		W: anything.Wind{},
 	}
-	e.Start("9080", []any{}, []any{&router.Router{}})
+	e.Start("9080", []any{}, []any{&router.Router{}}, map[string][]any{})
 }
