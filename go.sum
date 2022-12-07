@@ -6,5 +6,7 @@ github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221107072033-d91db729f568 h1:Mwo2i
 github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221107072033-d91db729f568/go.mod h1:3M/75NFCDYOp7EHVlahfpUSuFDrvbnzyP/x3dH5v6EU=
 github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221206071639-7e21c990c32c h1:jMvMYdMpunK53eOab67TxOANtG2/JcfBqhvdjxgR4BM=
 github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221206071639-7e21c990c32c/go.mod h1:XApZiz+u9QeJITiHTqmA2N1Ip3vh1l9EtLBYzZSx4PE=
+github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221207063015-aadd84a7f15c h1:MnD+i4A9rATAXjvbMTsnO5b++MmrZNcGqkyQAvpQ9tE=
+github.com/iEvan-lhr/nihility-dust v0.1.3-0.20221207063015-aadd84a7f15c/go.mod h1:XApZiz+u9QeJITiHTqmA2N1Ip3vh1l9EtLBYzZSx4PE=
 github.com/iEvan-lhr/string v0.0.4 h1:aFcoo16jAzaXyDYOi6lApgUoT9xFz3pqKzbwbvdIKz8=
 github.com/iEvan-lhr/string v0.0.4/go.mod h1:WDWEguR52uZnQo5n4mi9xxO4Vhz1o2Ji2maJWJdglmQ=
